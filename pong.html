@@ -97,3 +97,51 @@ button:hover {
     color: #00ffff;
     z-index: 10;
     display: none;
+}
+</style>
+</head>
+<body>
+<div id="gameContainer">
+    <div style="position: relative;">
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <div id="pauseOverlay">PAUSED</div>
+    </div>
+    <div id="sideInfo">
+        <div id="scoreBoard">
+            <div>Player: <span id="playerScore">0</span></div>
+            <div>CPU: <span id="cpuScore">0</span></div>
+            <div>Level: <span id="currentLevel">1</span></div>
+        </div>
+        <div id="controls">
+            <button id="pauseBtn">Pause</button>
+            <button id="restartBtn">Restart</button>
+            <select id="levelSelect">
+                <option value="1">Level 1</option>
+                <option value="2">Level 2</option>
+                <option value="3">Level 3</option>
+            </select>
+            <button id="saveBtn">Save Game</button>
+        </div>
+        <div id="topScores">
+            <h3>Top Scores</h3>
+            <ol id="scoreList"></ol>
+        </div>
+    </div>
+</div>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const playerScoreElement = document.getElementById('playerScore');
+const cpuScoreElement = document.getElementById('cpuScore');
+const currentLevelElement = document.getElementById('currentLevel');
+const restartBtn = document.getElementById('restartBtn');
+const saveBtn = document.getElementById('saveBtn');
+const levelSelect = document.getElementById('levelSelect');
+const scoreList = document.getElementById('scoreList');
+const pauseBtn = document.getElementById('pauseBtn');
+const pauseOverlay = document.getElementById('pauseOverlay');
+
+const paddleWidth = 10;
+const paddleHeight = 100;
+const ballSize = 10;
