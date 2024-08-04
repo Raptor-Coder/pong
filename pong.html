@@ -195,3 +195,49 @@ function resetBall() {
     ballSpeedX = -ballSpeedX;
     ballSpeedY = Math.random() > 0.5 ? 5 : -5;
 }
+
+function update() {
+    if (isPaused) return;
+
+    // Move the ball
+    ballX += ballSpeedX;
+    ballY += ballSpeedY;
+
+    // Ball collision with top and bottom walls
+    if (ballY - ballSize < 0 || ballY + ballSize > canvas.height) {
+        ballSpeedY = -ballSpeedY;
+    }
+
+    // Ball collision with paddles
+    if (
+        (ballX - ballSize < paddleWidth && ballY > playerY && ballY < playerY + paddleHeight) ||
+        (ballX + ballSize > canvas.width - paddleWidth && ballY > cpuY && ballY < cpuY + paddleHeight)
+    ) {
+        ballSpeedX = -ballSpeedX;
+        ballSpeedY += (Math.random() - 0.5) * 4; // Add some randomness to the y speed
+    }
+
+    // Score points
+    if (ballX < 0) {
+        cpuScore++;
+        updateScore();
+        resetBall();
+    } else if (ballX > canvas.width) {
+        playerScore++;
+        updateScore();
+        resetBall();
+    }
+
+    // CPU AI
+    const cpuSpeed = 3 + currentLevel;
+    if (cpuY + paddleHeight / 2 < ballY - 35) {
+        cpuY += cpuSpeed;
+    } else if (cpuY + paddleHeight / 2 > ballY + 35) {
+        cpuY -= cpuSpeed;
+    }
+
+    // Increase ball speed based on level
+    const maxSpeed = 5 + (currentLevel * 2);
+    ballSpeedX = Math.sign(ballSpeedX) * Math.min(Math.abs(ballSpeedX), maxSpeed);
+    ballSpeedY = Math.sign(ballSpeedY) * Math.min(Math.abs(ballSpeedY), maxSpeed);
+}
