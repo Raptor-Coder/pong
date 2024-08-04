@@ -48,3 +48,52 @@ button {
     width: 100%;
     margin-bottom: 10px;
 }
+button:hover {
+    background-color: #00ffff;
+    color: #000;
+}
+#levelSelect {
+    background-color: #000;
+    color: #00ffff;
+    border: 2px solid #00ffff;
+    padding: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+#topScores h3 {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 15px;
+}
+#scoreList {
+    padding-left: 0;
+    list-style-position: inside;
+    margin: 0;
+}
+#scoreList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+#scoreList li::before {
+    content: counter(item) ". ";
+    counter-increment: item;
+    margin-right: 5px;
+}
+#pauseOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    color: #00ffff;
+    z-index: 10;
+    display: none;
