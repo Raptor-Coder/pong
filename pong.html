@@ -293,3 +293,48 @@ function restartGame() {
     pauseOverlay.style.display = 'none';
     pauseBtn.textContent = 'Pause';
 }
+
+function saveGame() {
+    const scores = JSON.parse(localStorage.getItem('pongScores')) || [];
+    scores.push(playerScore);
+    scores.sort((a, b) => b - a);
+    localStorage.setItem('pongScores', JSON.stringify(scores.slice(0, 3)));
+    updateTopScores();
+}
+
+function updateTopScores() {
+    const scores = JSON.parse(localStorage.getItem('pongScores')) || [];
+    scoreList.innerHTML = '';
+    scores.forEach((score, index) => {
+        const li = document.createElement('li');
+        li.textContent = score;
+        scoreList.appendChild(li);
+    });
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+    if (isPaused) {
+        pauseOverlay.style.display = 'flex';
+        pauseBtn.textContent = 'Resume';
+    } else {
+        pauseOverlay.style.display = 'none';
+        pauseBtn.textContent = 'Pause';
+    }
+}
+
+restartBtn.addEventListener('click', restartGame);
+saveBtn.addEventListener('click', saveGame);
+pauseBtn.addEventListener('click', togglePause);
+levelSelect.addEventListener('change', (e) => {
+    currentLevel = parseInt(e.target.value);
+    restartGame();
+});
+
+// Start the game loop
+gameLoop();
+updateTopScores();
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</body></html>
