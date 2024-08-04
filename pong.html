@@ -145,3 +145,53 @@ const pauseOverlay = document.getElementById('pauseOverlay');
 const paddleWidth = 10;
 const paddleHeight = 100;
 const ballSize = 10;
+
+let playerY = (canvas.height - paddleHeight) / 2;
+let cpuY = (canvas.height - paddleHeight) / 2;
+let ballX = canvas.width / 2;
+let ballY = canvas.height / 2;
+let ballSpeedX = 5;
+let ballSpeedY = 5;
+
+let playerScore = 0;
+let cpuScore = 0;
+let currentLevel = 1;
+let isPaused = false;
+
+function drawRect(x, y, width, height, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, width, height);
+}
+
+function drawNeonRect(x, y, width, height, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = color;
+    ctx.strokeRect(x, y, width, height);
+    ctx.shadowBlur = 0;
+}
+
+function drawNeonCircle(x, y, radius, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = color;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+}
+
+function updateScore() {
+    playerScoreElement.textContent = playerScore;
+    cpuScoreElement.textContent = cpuScore;
+    currentLevelElement.textContent = currentLevel;
+}
+    
+function resetBall() {
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+    ballSpeedX = -ballSpeedX;
+    ballSpeedY = Math.random() > 0.5 ? 5 : -5;
+}
